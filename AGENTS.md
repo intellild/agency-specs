@@ -128,6 +128,13 @@ agency/
 └── package.json
 ```
 
+> **⚠️ 重要**: `agency/` 是一个独立的 Git 仓库（symlink 到 `/Volumes/code/agency`）。代码提交需要单独在 agency 目录中执行：
+> ```bash
+> cd agency
+> git add -A
+> git commit -m "your message"
+> ```
+
 **技术栈**:
 - **后端**: Fastify 5 + TypeScript 5.9 + Node.js 20+
 - **前端**: Modern.js 3 + React 19
@@ -183,7 +190,9 @@ schema: spec-driven
 2. **保持变更聚焦** - 每个变更应该解决一个独立的问题
 3. **最小化代码变更** - 实现时只做必要的修改
 4. **不要修改测试文件** - 除非明确要求
-5. **agency 是 symlink** - 实际路径是 `/Volumes/code/agency`
+5. **agency 是独立的 Git 仓库** - `agency/` 是 symlink 到 `/Volumes/code/agency`，有自己的 `.git` 目录。提交代码时需要分别提交两个仓库：
+   - 代码变更：`cd agency && git commit`
+   - 规范变更：`git commit`（在 agency-specs 根目录）
 
 ## 工作流图示
 
