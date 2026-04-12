@@ -23,14 +23,18 @@ The system SHALL gracefully stop the P2P node when the server shuts down.
 - **THEN** the P2P node is stopped before the process exits
 
 ### Requirement: P2P info exposure
-The system SHALL expose P2P node information through a utility function for use in authentication responses.
+The system SHALL expose P2P node information through a dedicated API endpoint instead of embedding it in authentication responses.
 
 #### Scenario: Auth response includes P2P config
-- **WHEN** a user successfully authenticates via GitHub OAuth
-- **AND** the P2P node is initialized
-- **THEN** the auth response includes `p2p.serverPeerId`, `p2p.relayAddresses`, and `p2p.iceServers`
+- **REMOVED**: Auth response no longer includes P2P configuration
+- **Migration**: Use `GET /api/p2p/config` endpoint
 
-#### Scenario: Auth response without P2P when unavailable
-- **WHEN** a user successfully authenticates
+#### Scenario: P2P config available via dedicated endpoint
+- **WHEN** a user is authenticated
+- **AND** makes a GET request to `/api/p2p/config`
+- **THEN** the response includes `serverPeerId`, `relayAddresses`, and `iceServers`
+
+#### Scenario: P2P unavailable response
+- **WHEN** a user requests P2P config
 - **AND** the P2P node is not initialized
-- **THEN** the auth response includes `p2p: null`
+- **THEN** the `/api/p2p/config` endpoint returns 503

@@ -9,7 +9,8 @@ The system SHALL provide a POST endpoint `/auth/github/callback` that exchanges 
 - **AND** fetches the authenticated GitHub user info
 - **AND** generates a new JWT access token (RS256, 30 days expiration)
 - **AND** generates a new JWT refresh token (HS256)
-- **AND** returns `{ accessToken, refreshToken, githubToken, userId, username, p2p }`
+- **AND** returns `{ accessToken, refreshToken, githubToken, userId, username }`
+- **AND** the response does NOT include a `p2p` field
 
 #### Scenario: Missing authorization code
 - **WHEN** a POST request is made without a code
